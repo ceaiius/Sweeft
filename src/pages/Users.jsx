@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import {useParams} from "react-router-dom";
 import axios from 'axios';
 import Card from '../components/Card';
+
+
 export default function Users() {
   const params = useParams();
   const [users, setUsers] = useState();
   const [items, setItems] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [page, setPage] = useState(1);
+  const random = Math.floor(Math.random() * (10)) + 1;
 
-
+// Getting the single user 
   useEffect(()=>{
     async function fetchData(){
       const res = await axios(`http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${params.id}`);
@@ -17,26 +20,34 @@ export default function Users() {
       setUsers(res.data);
     }
     fetchData()
-  },[]);
+  },[params.id]);
 
-  
-  const fetchData = (setItems, items) => {
+
+// Getting the list of friends 
+  const fetchData = (setItems) => {
+
     let url =  `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${params.id}/friends/1/20`;
     axios.get(url).then((res) => {
-        setItems([...items, ...res.data.list]);
+        setItems(res.data.list);
         console.log(res);
       });
    };
 
+// Browsing more friends by changing the page from API
   const moreData = () => {
-    let url = `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${params.id}/friends/${page}/20`;
+    let url = `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${params.id}/friends/${page}/40`;
     
     axios.get(url).then(res => {
-      setItems([...items, ...res.data.list]);
+      const filteredItems = res.data.list.filter(u => u.id> 25);
+      setItems([...items,...filteredItems]);
       setPage(page+1)
-      setIsFetching(false)
+      setIsFetching(false);
+      console.log(res);
     });
+    
   }
+
+// infinite scrolling methodology
 
   const isScrolling =()=>{
     if(window.innerHeight + document.documentElement.scrollTop!==document.documentElement.offsetHeight){
@@ -48,8 +59,10 @@ export default function Users() {
 useEffect(()=>{
    fetchData(setItems,items);
    window.addEventListener("scroll", isScrolling);
+   console.log(items);
     return () => window.removeEventListener("scroll", isScrolling);
- },[]);
+    
+ },[params.id]);
 
 
  useEffect(() => {
@@ -58,12 +71,13 @@ useEffect(()=>{
   }
 }, [isFetching]);
 
-  if(!users) return <p>Fetching...</p>
+  if(!users) return <p style={{display:"none"}}>Loading</p>
 
   return (
     <div>
       <div className='container'>
-        <img src={users.imageUrl}/>
+        
+        <img src={users.imageUrl  + "?v=" + random}/>
         <h1 className='info'>Info</h1>
         <div className='card-div'>
           <div className='name-div'>

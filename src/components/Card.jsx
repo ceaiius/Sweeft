@@ -16,8 +16,9 @@ export default function Card({image,name,job, prefix, lastName, id}) {
                 <img src={image + "?v=" + random}  alt=""/>
             </div>      
             <div className="card-text">
-                <h2>{prefix} {name} {lastName}</h2>
                 <h3>{job}</h3>
+                <h2>{prefix} {name} {lastName}</h2>
+                
             </div>
         </Link>
     </div>
