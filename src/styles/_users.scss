@@ -1,15 +1,15 @@
-.container{
+.container {
     display: flex;
     margin-left: 5%;
     margin-top: 5%;
 }
 
-.container img{
+.container img {
     width: 300px;
     background-size: cover;
 }
 
-.card-div{
+.card-div {
     margin-left: 5%;
     display: flex;
     align-items: center;
@@ -17,20 +17,18 @@
     width: 800px;
     border-width: 3px;
     border-style: solid;
-    border-image: 
-        linear-gradient(
-        to bottom, 
-        rgb(124, 28, 21), 
-        rgba(0, 0, 0, 0)
-        ) 1 100%;
+    border-image:
+        linear-gradient(to bottom,
+            rgb(124, 28, 21),
+            rgba(0, 0, 0, 0)) 1 100%;
 }
 
-.name-div{
+.name-div {
     padding-left: 5%;
     padding-top: 10px;
 }
 
-.details-div{
+.details-div {
     font-size: 15px;
     padding-top: 20px;
     display: flex;
@@ -39,33 +37,33 @@
     padding-top: 10px;
 }
 
-.address-div{
+.address-div {
     margin-left: 5%;
 }
 
-.address-div div{
+.address-div div {
     padding-left: 15px;
 }
 
-.info{
+.info {
     position: absolute;
     top: 20px;
-    left:45%;
+    left: 45%;
     color: #FF416C;
 }
 
-.adress{
+.adress {
     position: absolute;
     top: 20px;
     right: 18%;
     color: #FF416C;
 }
 
-.friends-h1{
+.friends-h1 {
     color: #FF416C;
 }
 
-.friends-div{
+.friends-div {
     display: flex;
     justify-content: center;
     margin-top: 5%;
